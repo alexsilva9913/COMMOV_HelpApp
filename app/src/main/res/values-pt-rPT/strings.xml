@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">App de Ajuda</string>
+
+    //Login
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="butLogin">Login</string>
+    <string name="butNotas">Notas Pessoais</string>
+    <string name="LinkRegistar">Não está registado? Clique aqui</string>
+
+</resources>

@@ -1,16 +1,27 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Button Color -->
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/Button</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="Theme.COMMOV_HelpApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/TopTopBar</item>
+        <item name="colorPrimaryVariant">@color/TopBar</item>
+        <item name="colorOnPrimary">@color/Background</item>
+
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
         <!-- Customize your theme here. -->
     </style>
 </resources>

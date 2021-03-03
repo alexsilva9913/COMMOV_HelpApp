@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">COMMOV_HelpApp</string>
+    <string name="app_name">Help App</string>
+
+    //Login
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="butLogin">Login</string>
+    <string name="butNotas">Personal Notes</string>
+    <string name="LinkRegistar">Not registed yet? Click here</string>
+
 </resources>
