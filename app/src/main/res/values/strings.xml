@@ -8,4 +8,8 @@
     <string name="butNotas">Personal Notes</string>
     <string name="LinkRegistar">Not registed yet? Click here</string>
 
+    <string name="Titulo">Title</string>
+    <string name="Desc">Desc</string>
+    <string name="Hora">Hour</string>
+
 </resources>

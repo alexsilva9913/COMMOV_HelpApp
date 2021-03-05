@@ -9,4 +9,8 @@
     <string name="butNotas">Notas Pessoais</string>
     <string name="LinkRegistar">Não está registado? Clique aqui</string>
 
+    <string name="Titulo">Titulo</string>
+    <string name="Desc">Descrição</string>
+    <string name="Hora">Hora</string>
+
 </resources>

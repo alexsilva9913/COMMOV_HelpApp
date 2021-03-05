@@ -11,6 +11,7 @@
 
     //Background
     <color name="Background">#76a5af</color>
+    <color name="BackgroundRow">#9fc5f8</color>
 
     //Butões
     <color name="Button">#ffe599</color>

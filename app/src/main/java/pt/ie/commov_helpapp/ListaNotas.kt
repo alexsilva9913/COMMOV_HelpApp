@@ -12,6 +12,21 @@ class ListaNotas : AppCompatActivity() {
         setContentView(R.layout.activity_lista_notas)
     }
 
-    //Implementar Top Menu
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.top_menu, menu)
+        return true
+    }
+
+    //Options Delete Menu
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.add_user){
+            //addUser()
+        }
+        if(item.itemId == R.id.delete_menu){
+            //deleteAll()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 }
