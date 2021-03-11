@@ -11,5 +11,6 @@ data class Notas(
         @PrimaryKey(autoGenerate = true)
         val id: Int,
         val titulo: String,
+        val DataHora: String,
         val descricao: String
 )//: Parcelable
