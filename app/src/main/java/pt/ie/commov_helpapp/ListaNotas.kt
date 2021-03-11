@@ -47,9 +47,13 @@ class ListaNotas : AppCompatActivity() {
             startActivity(intent)
         }
         if(item.itemId == R.id.delete_menu){
-            //deleteAll()
+            deleteAll()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun deleteAll(){
+        mNotasViewModel.deleteAllNotas();
     }
 
 }

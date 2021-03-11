@@ -27,7 +27,7 @@ abstract class db_database : RoomDatabase() {
                     var notasDao = database.notasDao()
 
                     // Delete all content here.
-                    notasDao.deleteAllNotas()
+                    // notasDao.deleteAllNotas()
 
                     // Add sample cities.
                     var city = Notas(1, "Acidente", "11/03/2021 15:00","ahdhfiekmvjfigfoigjiorj'gofjgifgfdsgfds")
