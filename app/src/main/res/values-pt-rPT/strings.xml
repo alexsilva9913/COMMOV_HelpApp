@@ -13,4 +13,8 @@
     <string name="Desc">Descrição</string>
     <string name="Hora">Hora</string>
 
+    <string name="Description">Descrição</string>
+
+    <string name="butSave">Guardar Dados</string>
+
 </resources>

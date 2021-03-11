@@ -12,4 +12,7 @@
     <string name="Desc">Desc</string>
     <string name="Hora">Hour</string>
 
+    <string name="Description">Description</string>
+
+    <string name="butSave">Save Data</string>
 </resources>
