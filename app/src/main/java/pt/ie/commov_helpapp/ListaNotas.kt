@@ -1,5 +1,6 @@
 package pt.ie.commov_helpapp
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,8 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -52,8 +55,21 @@ class ListaNotas : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun deleteAll(){
-        mNotasViewModel.deleteAllNotas();
+
+
+    private fun deleteAll() {
+        val builder = AlertDialog.Builder(this)
+        builder.setPositiveButton(getResources().getString(R.string.yes)) { _, _ ->
+            mNotasViewModel.deleteAllNotas()
+            Toast.makeText(
+                    this,
+                    getResources().getString(R.string.done),
+                    Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton(getResources().getString(R.string.no)) { _, _ -> }
+        builder.setTitle(getResources().getString(R.string.deleteevery))
+        builder.setMessage(getResources().getString(R.string.areyousure))
+        builder.create().show()
     }
 
 }

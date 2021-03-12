@@ -17,4 +17,10 @@
 
     <string name="butSave">Guardar Dados</string>
 
+    <string name="yes" >Sim</string>
+    <string name="done">Dados removidos com sucesso!</string>
+    <string name="no" >Não</string>
+    <string name="deleteevery" >Deseja eleminar todos os dados?</string>
+    <string name="areyousure" >Têm a certeza?</string>
+
 </resources>
