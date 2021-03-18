@@ -25,6 +25,15 @@ class NotasViewModel(application: Application): AndroidViewModel(application) {
         repository = Repository(NotasDao)
         readAllData = repository.readAllData
         readFirstData = repository.readFirstData
+
+    }
+
+    fun readNotaId(id: Int): LiveData<List<Notas>> {
+        return repository.readNotaId(id)
+    }
+
+    fun deleteporid(id: Int){
+        return repository.deleteporid(id)
     }
 
     fun addNotas(notas: Notas){
@@ -50,4 +59,6 @@ class NotasViewModel(application: Application): AndroidViewModel(application) {
             repository.deleteAllNotas()
         }
     }
+
+
 }

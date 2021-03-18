@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import pt.ie.commov_helpapp.Data.Entitys.Notas
 import pt.ie.commov_helpapp.Data.ViewModel.NotasViewModel
+import java.time.*;
 
 class InserirNotas : AppCompatActivity() {
 
@@ -24,9 +25,25 @@ class InserirNotas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inserir_notas)
 
-        notasTitulo = findViewById(R.id.editTitulo)
-        notasHora = findViewById(R.id.editHoraData)
-        notasDesc = findViewById(R.id.editDesc)
+        notasTitulo = findViewById(R.id.editTituloedit)
+        notasHora = findViewById(R.id.editHoraDataedit)
+        notasDesc = findViewById(R.id.editDescedit)
+
+        //Gets Current Date
+        val current = LocalDateTime.now()
+
+        //Transform The String Date
+        val DateNow = current.toString().take(10)
+
+        //Cuts Time from current time
+        val TimeNow = current.toString().take(16)
+        val TimeNowFinal = TimeNow.toString().takeLast(5)
+
+        //Creates String whit Date and Time
+        val DateTimeDone = "$TimeNowFinal $DateNow"
+
+        //Insert date and time
+        notasHora.setText(DateTimeDone)
 
         mNotasViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(NotasViewModel::class.java)
         //mNotasViewModel = ViewModelProvider(this).get(NotasViewModel::class.java)

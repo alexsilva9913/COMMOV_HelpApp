@@ -15,6 +15,12 @@ interface NotasDao {
     @Query("SELECT * FROM notas")
     fun readAllData(): LiveData<List<Notas>>
 
+    @Query("SELECT * FROM notas WHERE id == :id")
+    fun readNotaId(id: Int): LiveData<List<Notas>>
+
+    @Query("DELETE FROM notas WHERE id == :id")
+    fun deleteporid(id: Int)
+
     @Query("SELECT * FROM notas ORDER BY id DESC")
     fun readFirstData(): LiveData<List<Notas>>
 

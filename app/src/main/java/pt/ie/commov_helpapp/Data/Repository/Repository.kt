@@ -13,6 +13,14 @@ class Repository(private val notasDao: NotasDao) {
 
     val readFirstData: LiveData<List<Notas>> = notasDao.readFirstData()
 
+    fun readNotaId(id: Int): LiveData<List<Notas>> {
+        return notasDao.readNotaId(id)
+    }
+
+    fun deleteporid(id: Int){
+        return notasDao.deleteporid(id)
+    }
+
     suspend fun addNotas(registo: Notas){
         notasDao.addNotas(registo)
     }

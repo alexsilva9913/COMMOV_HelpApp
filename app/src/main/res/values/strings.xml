@@ -17,9 +17,9 @@
     <string name="butSave">Save Data</string>
 
     //Confirmação
-    <string name="yes" >Yes</string>
-    <string name="done" >Successfully removed everything!</string>
-    <string name="no" >No</string>
-    <string name="deleteevery" >Delete everything?</string>
-    <string name="areyousure" >Are you sure?</string>
+    <string name="yes">Yes</string>
+    <string name="done">Successfully removed everything!</string>
+    <string name="no">No</string>
+    <string name="deleteevery">Delete everything?</string>
+    <string name="areyousure">Are you sure?</string>
 </resources>

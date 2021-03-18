@@ -15,10 +15,10 @@
         android:text="@string/butSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/editDescedit" />
 
     <EditText
-        android:id="@+id/editTitulo"
+        android:id="@+id/editTituloedit"
         android:layout_width="313dp"
         android:layout_height="31dp"
         android:layout_marginTop="12dp"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/labelTitulo" />
 
     <EditText
-        android:id="@+id/editHoraData"
+        android:id="@+id/editHoraDataedit"
         android:layout_width="313dp"
         android:layout_height="31dp"
         android:layout_marginTop="16dp"
@@ -63,10 +63,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTitulo" />
+        app:layout_constraintTop_toBottomOf="@+id/editTituloedit" />
 
     <EditText
-        android:id="@+id/editDesc"
+        android:id="@+id/editDescedit"
         android:layout_width="314dp"
         android:layout_height="77dp"
         android:layout_marginTop="12dp"
@@ -85,9 +85,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="@string/Description"
-        app:layout_constraintEnd_toEndOf="@+id/editHoraData"
+        app:layout_constraintEnd_toEndOf="@+id/editHoraDataedit"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="@+id/editHoraData"
-        app:layout_constraintTop_toBottomOf="@+id/editHoraData" />
+        app:layout_constraintStart_toStartOf="@+id/editHoraDataedit"
+        app:layout_constraintTop_toBottomOf="@+id/editHoraDataedit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
