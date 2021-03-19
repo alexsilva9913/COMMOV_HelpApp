@@ -11,12 +11,13 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import pt.ie.commov_helpapp.Data.Entitys.Notas
+import pt.ie.commov_helpapp.Data.ViewModel.NotasViewModel
 import pt.ie.commov_helpapp.R
 import pt.ie.commov_helpapp.editarnotas
 
-
-
 class NotasAdapter internal constructor(context: Context) : RecyclerView.Adapter<NotasAdapter.NotasViewHolder>() {
+
+    private lateinit var mNotasViewModel: NotasViewModel
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var notas = emptyList<Notas>()
@@ -25,6 +26,7 @@ class NotasAdapter internal constructor(context: Context) : RecyclerView.Adapter
         val TituloItemView: TextView = itemView.findViewById(R.id.outputTitulo)
         val DescItemView: TextView = itemView.findViewById(R.id.OutputDescricao)
         val HoraItemView: TextView = itemView.findViewById(R.id.Hora)
+
 
         /*init{
             itemView.setOnClickListener{
@@ -50,10 +52,8 @@ class NotasAdapter internal constructor(context: Context) : RecyclerView.Adapter
 
 
         holder.itemView.setOnClickListener{
-            //val Position: Int = adapterPosition
-            //Toast.makeText(itemView.context, "Clicastes no Item # ${IdItem}", Toast.LENGTH_SHORT).show()
             val IdItem: Int = current.id
-            Toast.makeText(holder.itemView.context, "Clicastes no Item # ${IdItem}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(holder.itemView.context, "Clicastes no Item # ${IdItem}", Toast.LENGTH_SHORT).show()
 
             val intent = Intent(holder.itemView.context, editarnotas::class.java)
             intent.putExtra("idDoItem",IdItem)

@@ -25,6 +25,8 @@ class InserirNotas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inserir_notas)
 
+        (this as AppCompatActivity).supportActionBar?.title = ""
+
         notasTitulo = findViewById(R.id.editTituloedit)
         notasHora = findViewById(R.id.editHoraDataedit)
         notasDesc = findViewById(R.id.editDescedit)
@@ -50,20 +52,8 @@ class InserirNotas : AppCompatActivity() {
 
         val button = findViewById<Button>(R.id.butSave)
         button.setOnClickListener {
-            val replyIntent = Intent()
-            if (TextUtils.isEmpty(notasTitulo.text) || TextUtils.isEmpty(notasHora.text) || TextUtils.isEmpty(notasDesc.text)) {
-                setResult(Activity.RESULT_CANCELED, replyIntent)
-            } else {
                 insertNotas()
-            }
-            finish()
         }
-    }
-
-    companion object {
-        const val EXTRA_REPLY_TIT = "com.example.android.TIT"
-        const val EXTRA_REPLY_HORA = "com.example.android.HORA"
-        const val EXTRA_REPLY_DESC = "com.example.android.DESC"
     }
 
     private fun insertNotas(){
@@ -73,12 +63,18 @@ class InserirNotas : AppCompatActivity() {
         val hora = notasHora.text
         val desc = notasDesc.text
 
-        val notas = Notas(0, tit.toString(),hora.toString(),desc.toString())
+        if(tit.isBlank() || hora.isBlank() || desc.isBlank()) {
+            Toast.makeText(this, getResources().getString(R.string.ValoresPreencher), Toast.LENGTH_SHORT).show()
+        }
+        else{
+            val notas = Notas(0, tit.toString(),hora.toString(),desc.toString())
 
-        mNotasViewModel.addNotas(notas)
+            mNotasViewModel.addNotas(notas)
 
-        Toast.makeText(this, "Created Successfully!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getResources().getString(R.string.Criado), Toast.LENGTH_SHORT).show()
 
+            finish()
+        }
     }
 }
 

@@ -11,7 +11,7 @@
 
     <string name="Titulo">Titulo</string>
     <string name="Desc">Descrição</string>
-    <string name="Hora">Hora</string>
+    <string name="Hora">Hora e Data</string>
 
     <string name="Description">Descrição</string>
 
@@ -19,8 +19,13 @@
 
     <string name="yes" >Sim</string>
     <string name="done">Dados removidos com sucesso!</string>
+    <string name="doneone">Nota removida com sucesso!</string>
     <string name="no" >Não</string>
     <string name="deleteevery" >Deseja eleminar todos os dados?</string>
+    <string name="deleteone">Deseja eleminar esta nota?</string>
     <string name="areyousure" >Têm a certeza?</string>
+
+    <string name="ValoresPreencher">Por favor preencha todos os campos</string>
+    <string name="Criado" >Criado com sucesso!</string>
 
 </resources>

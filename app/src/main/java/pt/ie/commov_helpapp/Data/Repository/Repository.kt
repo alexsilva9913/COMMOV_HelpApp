@@ -17,8 +17,8 @@ class Repository(private val notasDao: NotasDao) {
         return notasDao.readNotaId(id)
     }
 
-    fun deleteporid(id: Int){
-        return notasDao.deleteporid(id)
+    suspend fun deleteporid(id: Int){
+        notasDao.deleteporid(id)
     }
 
     suspend fun addNotas(registo: Notas){

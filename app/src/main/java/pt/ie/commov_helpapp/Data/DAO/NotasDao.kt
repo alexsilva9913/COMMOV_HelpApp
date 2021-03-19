@@ -19,7 +19,7 @@ interface NotasDao {
     fun readNotaId(id: Int): LiveData<List<Notas>>
 
     @Query("DELETE FROM notas WHERE id == :id")
-    fun deleteporid(id: Int)
+    suspend fun deleteporid(id: Int)
 
     @Query("SELECT * FROM notas ORDER BY id DESC")
     fun readFirstData(): LiveData<List<Notas>>

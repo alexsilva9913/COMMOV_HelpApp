@@ -10,7 +10,7 @@
 
     <string name="Titulo">Title</string>
     <string name="Desc">Desc</string>
-    <string name="Hora">Hour</string>
+    <string name="Hora">Hour and Date</string>
 
     <string name="Description">Description</string>
 
@@ -19,7 +19,13 @@
     //Confirmação
     <string name="yes">Yes</string>
     <string name="done">Successfully removed everything!</string>
+    <string name="doneone">Successfully removed!</string>
     <string name="no">No</string>
     <string name="deleteevery">Delete everything?</string>
+    <string name="deleteone">Delete this note?</string>
     <string name="areyousure">Are you sure?</string>
+
+    <string name="ValoresPreencher">Please fill all the field</string>
+    <string name="Criado" >Created Successfully!</string>
+
 </resources>

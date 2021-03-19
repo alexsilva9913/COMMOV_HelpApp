@@ -24,6 +24,8 @@ class ListaNotas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_notas)
 
+        (this as AppCompatActivity).supportActionBar?.title = ""
+
         // recycler view
         val recyclerView = findViewById<RecyclerView>(R.id.recycler)
         val adapter = NotasAdapter(this)

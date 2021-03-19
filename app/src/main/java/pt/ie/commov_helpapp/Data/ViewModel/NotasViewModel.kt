@@ -33,7 +33,9 @@ class NotasViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun deleteporid(id: Int){
-        return repository.deleteporid(id)
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteporid(id)
+        }
     }
 
     fun addNotas(notas: Notas){

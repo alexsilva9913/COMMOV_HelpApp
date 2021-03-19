@@ -25,13 +25,14 @@ class editarnotas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editarnotas)
 
+        (this as AppCompatActivity).supportActionBar?.title = ""
 
         var notasTitulo = findViewById<EditText>(R.id.editTituloedit)
         var notasHora= findViewById<EditText>(R.id.editHoraDataedit)
         var notasDesc= findViewById<EditText>(R.id.editDescedit)
 
         IdItem = intent.getIntExtra("idDoItem", 0)
-        Toast.makeText(this, "Clicastes no Item # ${IdItem}", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Clicastes no Item # ${IdItem}", Toast.LENGTH_SHORT).show()
 
         mNotasViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(NotasViewModel::class.java)
 
@@ -45,7 +46,6 @@ class editarnotas : AppCompatActivity() {
         button.setOnClickListener{
             update(IdItem)
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -71,9 +71,15 @@ class editarnotas : AppCompatActivity() {
         val Hora = notasHora.text.toString()
         val Desc = notasDesc.text.toString()
 
-        val updatedNota = Notas(idNota, Titulo, Hora, Desc)
-        mNotasViewModel.updateNotas(updatedNota)
-        finish()
+        if(Titulo.isBlank() || Hora.isBlank() || Desc.isBlank()){
+            Toast.makeText(this, getResources().getString(R.string.ValoresPreencher), Toast.LENGTH_SHORT).show()
+        }
+        else{
+            val updatedNota = Notas(idNota, Titulo, Hora, Desc)
+            mNotasViewModel.updateNotas(updatedNota)
+            finish()
+        }
+
     }
 
     private fun deleteThis(IdItem: Int) {
@@ -82,12 +88,11 @@ class editarnotas : AppCompatActivity() {
             mNotasViewModel.deleteporid(IdItem)
             Toast.makeText(
                     this,
-                    getResources().getString(R.string.done),
+                    getResources().getString(R.string.doneone),
                     Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton(getResources().getString(R.string.no)) { _, _ -> }
-        builder.setTitle(getResources().getString(R.string.deleteevery))
-        builder.setMessage(getResources().getString(R.string.areyousure))
+        builder.setTitle(getResources().getString(R.string.deleteone))
         builder.create().show()
     }
 
