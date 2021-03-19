@@ -20,6 +20,10 @@ class editarnotas : AppCompatActivity() {
     private lateinit var mNotasViewModel: NotasViewModel
 
     var IdItem = 0
+    var titulovalor = ""
+    var horavalor = ""
+    var descvalor = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,15 +36,22 @@ class editarnotas : AppCompatActivity() {
         var notasDesc= findViewById<EditText>(R.id.editDescedit)
 
         IdItem = intent.getIntExtra("idDoItem", 0)
+        titulovalor = intent.getStringExtra("titulovalor").toString()
+        horavalor = intent.getStringExtra("horavalor").toString()
+        descvalor = intent.getStringExtra("descvalor").toString()
         //Toast.makeText(this, "Clicastes no Item # ${IdItem}", Toast.LENGTH_SHORT).show()
+
+        notasTitulo.setText(titulovalor)
+        notasHora.setText(horavalor)
+        notasDesc.setText(descvalor)
 
         mNotasViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(NotasViewModel::class.java)
 
-        mNotasViewModel.readNotaId(IdItem).observe(this, Observer { notas ->
+        /*mNotasViewModel.readNotaId(IdItem).observe(this, Observer { notas ->
             notasTitulo.setText((notas.get(0).titulo))
             notasHora.setText((notas.get(0).DataHora))
             notasDesc.setText((notas.get(0).descricao))
-        })
+        })*/
 
         val button = findViewById<Button>(R.id.butSaveEdit)
         button.setOnClickListener{
@@ -86,6 +97,7 @@ class editarnotas : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setPositiveButton(getResources().getString(R.string.yes)) { _, _ ->
             mNotasViewModel.deleteporid(IdItem)
+            finish()
             Toast.makeText(
                     this,
                     getResources().getString(R.string.doneone),
