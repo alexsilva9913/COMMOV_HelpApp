@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/add_point"
+        android:title="Add"
+        android:icon="@drawable/icon_plus"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/logout"
+        android:title="Logout"
+        android:icon="@drawable/logout"
+        app:showAsAction="ifRoom"/>
+
+</menu>

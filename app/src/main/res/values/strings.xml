@@ -26,6 +26,7 @@
     <string name="areyousure">Are you sure?</string>
 
     <string name="ValoresPreencher">Please fill all the field</string>
-    <string name="Criado" >Created Successfully!</string>
+    <string name="Criado">Created Successfully!</string>
+    <string name="title_activity_visualizador_mapa">Map</string>
 
 </resources>
