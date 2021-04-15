@@ -63,9 +63,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<User>, response: Response<User>) {
 
-                Log.d("TESTE1",call.toString())
-                Log.d("TESTE1",response.toString())
-
                 if (response.isSuccessful){
                     val c: User = response.body()!!
 
