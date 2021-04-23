@@ -120,6 +120,7 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
         return super.onOptionsItemSelected(item)
     }
