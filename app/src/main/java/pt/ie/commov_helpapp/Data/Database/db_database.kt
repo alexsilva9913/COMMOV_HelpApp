@@ -30,11 +30,11 @@ abstract class db_database : RoomDatabase() {
                     // notasDao.deleteAllNotas()
 
                     // Add samples
-                    /*
-                    var city = Notas(1, "Acidente", "11/03/2021 15:00","ahdhfiekmvjfigfoigjiorj'gofjgifgfdsgfds")
-                    notasDao.addNotas(city)
-                    city = Notas(2, "Obras", "11/03/2021 17:00","ahdhfiekmvjfigffdfsddfsggoigjiorj'gofjgifgfdsgfds")
-                    notasDao.addNotas(city)*/
+
+                    var nota = Notas(1, "Acidente", "19/03/2021 15:00","TesteTesteTesteTesteTesteTesteTesteTeste")
+                    notasDao.addNotas(nota)
+                    nota = Notas(2, "Obras", "19/03/2021 19:00","TesteTesteTesteTesteTesteTesteTesteTesteTesteTesteTeste")
+                    notasDao.addNotas(nota)
 
                 }
             }

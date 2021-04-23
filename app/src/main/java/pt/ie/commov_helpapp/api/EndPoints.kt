@@ -19,6 +19,10 @@ interface EndPoints {
     @GET("/pontos")
     fun getPontos(): Call<List<Pontos>>
 
+    //Pontos por id
+    @GET("/pontos({id}")
+    fun getPontosID(@Path("id") id: Int): Call<Pontos>
+
     /*
     @FormUrlEncoded
     @POST("/posts")

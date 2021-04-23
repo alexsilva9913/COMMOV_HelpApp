@@ -1,6 +1,8 @@
 package pt.ie.commov_helpapp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,16 +11,21 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import ipvc.estg.retrofit.api.EndPoints
 import ipvc.estg.retrofit.api.ServiceBuilder
 import ipvc.estg.retrofit.api.User
 import pt.ie.commov_helpapp.Data.Entitys.Notas
 import pt.ie.commov_helpapp.Data.ViewModel.NotasViewModel
+import pt.ie.commov_helpapp.api.Pontos
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,23 +39,38 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        preferences = getSharedPreferences("SharedLogin", Context.MODE_PRIVATE);
+        val userPref = preferences.getString("USERNAME", null)
+        val passPref = preferences.getString("PASSWORD", null)
+
         val ButLogin = findViewById<Button>(R.id.butLogin) as Button
 
-        //Abrir Login
-        ButLogin.setOnClickListener {
+        if (userPref.isNullOrBlank() || passPref.isNullOrBlank()) {
 
+            //Abrir Login
+            ButLogin.setOnClickListener {
+
+                var username = findViewById<EditText>(R.id.editUsername)
+                var password = findViewById<EditText>(R.id.editPassword)
+
+                val usernameStr = username.text.toString()
+                val passwordStr = password.text.toString()
+
+                if(usernameStr.isNullOrBlank() || passwordStr.isNullOrBlank()){
+                    Toast.makeText(this@MainActivity, getResources().getString(R.string.preenchercampos), Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Login(usernameStr, passwordStr)
+                }
+            }
+        }
+
+        else {
 
             val intent = Intent(this, VisualizadorMapa::class.java)
             startActivity(intent)
-
-            /*
-            var username = findViewById<EditText>(R.id.editUsername)
-            var password = findViewById<EditText>(R.id.editPassword)
-
-            val usernameStr =  username.text.toString()
-            val passwordStr = password.text.toString()
-
-            Login(usernameStr, passwordStr)*/
+            finish()
+            
         }
     }
 
@@ -57,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         val request = ServiceBuilder.buildService(EndPoints::class.java)
         val call = request.getUserByNome(user)
 
-        Log.d("TESTE",call.toString())
+        val intent = Intent(this, VisualizadorMapa::class.java)
 
         call.enqueue(object : Callback<User> {
 
@@ -67,10 +89,18 @@ class MainActivity : AppCompatActivity() {
                     val c: User = response.body()!!
 
                     if(c.password.equals(pass)) {
-                        Toast.makeText(this@MainActivity, c.password, Toast.LENGTH_SHORT).show()
+
+                        val editor: SharedPreferences.Editor = preferences.edit()
+
+                        editor.putString("USERNAME", user)
+                        editor.putString("PASSWORD", pass)
+                        editor.apply()
+
+                        startActivity(intent)
+                        finish()
                     }
                     else{
-                        Toast.makeText(this@MainActivity, "Password Errada!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MainActivity, getResources().getString(R.string.passworderrada), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -78,23 +108,6 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<User>, t: Throwable) {
                 Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
                 //Toast.makeText(this@MainActivity, "ERRO ONFAILURE!", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    fun LoginUser(){
-
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.getUsers()
-
-        call.enqueue(object : Callback<List<User>>{
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                if (response.isSuccessful){
-                    Toast.makeText(this@MainActivity, "YES" + response.body(), Toast.LENGTH_SHORT).show()
-                }
-            }
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

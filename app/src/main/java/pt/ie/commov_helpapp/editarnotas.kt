@@ -36,9 +36,11 @@ class editarnotas : AppCompatActivity() {
         var notasDesc= findViewById<EditText>(R.id.editDescedit)
 
         IdItem = intent.getIntExtra("idDoItem", 0)
+
         titulovalor = intent.getStringExtra("titulovalor").toString()
         horavalor = intent.getStringExtra("horavalor").toString()
         descvalor = intent.getStringExtra("descvalor").toString()
+
         //Toast.makeText(this, "Clicastes no Item # ${IdItem}", Toast.LENGTH_SHORT).show()
 
         notasTitulo.setText(titulovalor)

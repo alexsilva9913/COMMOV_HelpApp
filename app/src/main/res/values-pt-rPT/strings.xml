@@ -21,11 +21,14 @@
     <string name="done">Dados removidos com sucesso!</string>
     <string name="doneone">Nota removida com sucesso!</string>
     <string name="no" >Não</string>
-    <string name="deleteevery" >Deseja eleminar todos os dados?</string>
-    <string name="deleteone">Deseja eleminar esta nota?</string>
+    <string name="deleteevery" >Deseja eliminar todos os dados?</string>
+    <string name="deleteone">Deseja eliminar esta nota?</string>
     <string name="areyousure" >Têm a certeza?</string>
 
     <string name="ValoresPreencher">Por favor preencha todos os campos</string>
     <string name="Criado" >Criado com sucesso!</string>
+
+    <string name="passworderrada">Password errada!</string>
+    <string name="preenchercampos">Por favor preencha todos os campos</string>
 
 </resources>

@@ -53,9 +53,10 @@ class NotasAdapter internal constructor(context: Context) : RecyclerView.Adapter
 
         holder.itemView.setOnClickListener{
             val IdItem: Int = current.id
+
             val titulovalor: String = current.titulo
-            val horavalor: String = current.descricao
-            val descvalor: String = current.DataHora
+            val horavalor: String = current.DataHora
+            val descvalor: String = current.descricao
 
             //Toast.makeText(holder.itemView.context, "Clicastes no Item # ${IdItem}", Toast.LENGTH_SHORT).show()
 
