@@ -3,6 +3,9 @@ package pt.ie.commov_helpapp
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +13,8 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.*
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -30,6 +35,20 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var Pontos: List<Pontos>
+
+    // add to implement last known location
+    private lateinit var lastLocation: Location
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    //added to implement location periodic updates
+    private lateinit var locationCallback: LocationCallback
+    private lateinit var locationRequest: LocationRequest
+
+    //added to implement distance between two locations
+    private var continenteLat: Double = 0.0
+    private var continenteLong: Double = 0.0
+
+    private lateinit var locAdd: LatLng
 
     //Shared Preferences
     lateinit var preferences: SharedPreferences
@@ -71,7 +90,7 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
                         else {
                             mMap.addMarker(MarkerOptions().position(position).title(Ponto.descricao + " - " + Ponto.tipo)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                         }
-                        
+
                     }
                 }
             }
@@ -81,6 +100,31 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
             }
 
         })
+
+        // initialize fusedLocationClient
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        //added to implement location periodic updates
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(p0: LocationResult) {
+                super.onLocationResult(p0)
+                lastLocation = p0.lastLocation
+                var loc = LatLng(lastLocation.latitude, lastLocation.longitude)
+                locAdd = loc
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15.0f))
+                // preenche as coordenadas
+                Log.d("Coords",loc.latitude.toString() )
+                Log.d("Coords",loc.longitude.toString() )
+                // reverse geocoding
+                val address = getAddress(lastLocation.latitude, lastLocation.longitude)
+
+
+                Log.d("**** SARA", "new location received - " + loc.latitude + " -" + loc.longitude)
+            }
+        }
+
+        // request creation
+        createLocationRequest()
 
     }
 
@@ -93,8 +137,11 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
     //Options Delete Menu
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.add_point){
-            val intent = Intent(this, InserirNotas::class.java)
+
+            val intent = Intent(this, editarnotas::class.java)
+            intent.putExtra("idDoItem",locAdd)
             startActivity(intent)
+            
         }
         if(item.itemId == R.id.logout){
             preferences = getSharedPreferences("SharedLogin", Context.MODE_PRIVATE)
@@ -109,17 +156,62 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
         return super.onOptionsItemSelected(item)
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+    }
 
+    //Alterado
+    companion object {
+        // add to implement last known location
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        //added to implement location periodic updates
+        private const val REQUEST_CHECK_SETTINGS = 2
+    }
+
+    //added to implement location periodic updates
+    private fun startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE)
+            return
+        }
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null /* Looper */)
+    }
+
+    private fun createLocationRequest() {
+        locationRequest = LocationRequest()
+        // interval specifies the rate at which your app will like to receive updates.
+        locationRequest.interval = 10000
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        fusedLocationClient.removeLocationUpdates(locationCallback)
+        Log.d("**** ALEX", "onPause - removeLocationUpdates")
+    }
+
+    public override fun onResume() {
+        super.onResume()
+        startLocationUpdates()
+        Log.d("**** ALEX", "onResume - startLocationUpdates")
+    }
+
+
+    private fun getAddress(lat: Double, lng: Double): String {
+        val geocoder = Geocoder(this)
+        val list = geocoder.getFromLocation(lat, lng, 1)
+        return list[0].getAddressLine(0)
+    }
+
+    fun calculateDistance(lat1: Double, lng1: Double, lat2: Double, lng2: Double): Float {
+        val results = FloatArray(1)
+        Location.distanceBetween(lat1, lng1, lat2, lng2, results)
+        // distance in meter
+        return results[0]
     }
 }
