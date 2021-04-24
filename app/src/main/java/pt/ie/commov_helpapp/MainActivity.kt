@@ -1,3 +1,4 @@
+
 package pt.ie.commov_helpapp
 
 import android.content.Context
@@ -5,20 +6,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import ipvc.estg.retrofit.api.EndPoints
 import ipvc.estg.retrofit.api.ServiceBuilder
 import ipvc.estg.retrofit.api.User
-import pt.ie.commov_helpapp.Data.Entitys.Notas
-import pt.ie.commov_helpapp.Data.ViewModel.NotasViewModel
-import pt.ie.commov_helpapp.api.Pontos
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -70,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, VisualizadorMapa::class.java)
             startActivity(intent)
             finish()
-            
+
         }
     }
 
@@ -107,9 +100,13 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<User>, t: Throwable) {
                 Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
-                //Toast.makeText(this@MainActivity, "ERRO ONFAILURE!", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
 }
+
+
+
+
+

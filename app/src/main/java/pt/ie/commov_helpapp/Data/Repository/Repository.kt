@@ -2,6 +2,7 @@ package pt.ie.commov_helpapp.Data.Repository
 
 import androidx.lifecycle.LiveData
 import androidx.room.Query
+import ipvc.estg.retrofit.api.ServiceBuilder
 import pt.ie.commov_helpapp.Data.DAO.NotasDao
 import pt.ie.commov_helpapp.Data.Entitys.Notas
 

@@ -12,8 +12,9 @@ interface EndPoints {
     fun getUsers(): Call<List<User>>
 
     //User pelo username
-    @POST("users/{username}")
-    fun getUserByNome(@Path("username") username: String): Call<User>
+    @FormUrlEncoded
+    @POST("users/post")
+    fun getUserByNome(@Field("username") username: String?): Call<User>
 
     //Todos os Pontos
     @GET("/pontos")
