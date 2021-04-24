@@ -27,6 +27,8 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var Pontos: List<Pontos>
+
+    //Shared Preferences
     lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +46,6 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
         val request = ServiceBuilder.buildService(EndPoints::class.java)
         val call = request.getPontos()
         var position: LatLng
-        //var teste = LatLng(-0.17042, 69.45837)
-
-        //mMap.addMarker(MarkerOptions().position(teste).title("Olá"))
 
         call.enqueue(object : Callback<List<Pontos>> {
 
