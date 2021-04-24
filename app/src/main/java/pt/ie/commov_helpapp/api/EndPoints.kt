@@ -12,7 +12,7 @@ interface EndPoints {
     fun getUsers(): Call<List<User>>
 
     //User pelo username
-    @GET("users/{username}")
+    @POST("users/{username}")
     fun getUserByNome(@Path("username") username: String): Call<User>
 
     //Todos os Pontos

@@ -1,0 +1,15 @@
+Index: app/src/main/java/pt/ie/commov_helpapp/VisualizadorMapa.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/pt/ie/commov_helpapp/VisualizadorMapa.kt	(revision 7d4be3045ad891cf14234794a5fa551ab7021fee)
++++ app/src/main/java/pt/ie/commov_helpapp/VisualizadorMapa.kt	(date 1619193969499)
+@@ -120,6 +120,7 @@
+ 
+             val intent = Intent(this, MainActivity::class.java)
+             startActivity(intent)
++            finish()
+         }
+         return super.onOptionsItemSelected(item)
+     }
