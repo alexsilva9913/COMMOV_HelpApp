@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -14,10 +15,12 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import ipvc.estg.retrofit.api.EndPoints
 import ipvc.estg.retrofit.api.ServiceBuilder
+import ipvc.estg.retrofit.api.User
 import pt.ie.commov_helpapp.api.Pontos
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,7 +45,6 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-
         val request = ServiceBuilder.buildService(EndPoints::class.java)
         val call = request.getPontos()
         var position: LatLng
@@ -50,6 +52,7 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
         call.enqueue(object : Callback<List<Pontos>> {
 
              override fun onResponse(call: Call<List<Pontos>>, response: Response<List<Pontos>>) {
+
                 if (response.isSuccessful){
 
                     Pontos = response.body()!!
@@ -58,9 +61,17 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
 
                         position = LatLng(Ponto.lat.toString().toDouble(), Ponto.lon.toString().toDouble())
 
-                        mMap.addMarker(MarkerOptions().position(position).title(Ponto.descricao + " - " + Ponto.tipo))
+                        preferences = getSharedPreferences("SharedLogin", Context.MODE_PRIVATE);
+                        val idPref = preferences.getInt("ID", 0)
 
+                        if(Ponto.user_id.equals(idPref)){
+                            mMap.addMarker(MarkerOptions().position(position).title(Ponto.descricao + " - " + Ponto.tipo)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                        }
 
+                        else {
+                            mMap.addMarker(MarkerOptions().position(position).title(Ponto.descricao + " - " + Ponto.tipo)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                        }
+                        
                     }
                 }
             }
@@ -68,34 +79,8 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
             override fun onFailure(call: Call<List<Pontos>>, t: Throwable) {
                 Toast.makeText(this@VisualizadorMapa, "${t.message}", Toast.LENGTH_SHORT).show()
             }
+
         })
-
-        /*
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.getPontosID(1)
-        var position: LatLng
-
-        val intent = Intent(this, VisualizadorMapa::class.java)
-
-        call.enqueue(object : Callback<Pontos> {
-
-            override fun onResponse(call: Call<Pontos>, response: Response<Pontos>) {
-
-                if (response.isSuccessful){
-                    val c: Pontos = response.body()!!
-
-                    position = LatLng(c.lat.toString().toDouble(), c.lon.toString().toDouble())
-
-                    mMap.addMarker(MarkerOptions().position(position).title(c.descricao + " - " + c.tipo))
-
-                }
-            }
-
-            override fun onFailure(call: Call<Pontos>, t: Throwable) {
-                Toast.makeText(this@VisualizadorMapa, "${t.message}", Toast.LENGTH_SHORT).show()
-                //Toast.makeText(this@MainActivity, "ERRO ONFAILURE!", Toast.LENGTH_SHORT).show()
-            }
-        })*/
 
     }
 
@@ -136,9 +121,5 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        //Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 }

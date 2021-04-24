@@ -17,12 +17,12 @@ interface EndPoints {
     fun getUserByNome(@Field("username") username: String?): Call<User>
 
     //Todos os Pontos
-    @GET("/pontos")
+    @GET("pontos")
     fun getPontos(): Call<List<Pontos>>
 
     //Pontos por id
-    @GET("/pontos({id}")
-    fun getPontosID(@Path("id") id: Int): Call<Pontos>
+    @GET("pontos/{id}")
+    fun getPontosID(@Path("id") id: Int?): Call<Pontos>
 
     /*
     @FormUrlEncoded

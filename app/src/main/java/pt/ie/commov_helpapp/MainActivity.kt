@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity() {
 
                         editor.putString("USERNAME", user)
                         editor.putString("PASSWORD", pass)
+                        editor.putInt("ID", c.id)
                         editor.apply()
 
                         startActivity(intent)
