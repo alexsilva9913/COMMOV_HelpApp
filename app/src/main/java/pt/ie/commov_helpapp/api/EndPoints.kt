@@ -24,8 +24,13 @@ interface EndPoints {
     @GET("pontos/{id}")
     fun getPontosID(@Path("id") id: Int?): Call<Pontos>
 
-    /*
+    //Inserir Ponto
     @FormUrlEncoded
-    @POST("/posts")
-    fun postTest(@Field("title") first: String?): Call<OutputPost>*/
+    @POST("addponto")
+    fun inserirPonto(@Field("titulo") titulo: String?,
+                     @Field("descricao") descricao: String?,
+                     @Field("lat") lat: String?,
+                     @Field("lon") lon: String?,
+                     @Field("tipo") tipo: String?,
+                     @Field("user_id") user_id: Int): Call<Pontos>
 }

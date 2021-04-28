@@ -1,7 +1,6 @@
 package pt.ie.commov_helpapp
 
 import android.app.AlertDialog
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -10,7 +9,6 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import pt.ie.commov_helpapp.Data.Entitys.Notas
 import pt.ie.commov_helpapp.Data.ViewModel.NotasViewModel
@@ -31,7 +29,7 @@ class editarnotas : AppCompatActivity() {
 
         (this as AppCompatActivity).supportActionBar?.title = ""
 
-        var notasTitulo = findViewById<EditText>(R.id.editTituloedit)
+        var notasTitulo = findViewById<EditText>(R.id.editTitEdit)
         var notasHora= findViewById<EditText>(R.id.editHoraDataedit)
         var notasDesc= findViewById<EditText>(R.id.editDescedit)
 
@@ -76,7 +74,7 @@ class editarnotas : AppCompatActivity() {
 
     private fun update(idNota: Int){
 
-        var notasTitulo = findViewById<EditText>(R.id.editTituloedit)
+        var notasTitulo = findViewById<EditText>(R.id.editTitEdit)
         var notasHora= findViewById<EditText>(R.id.editHoraDataedit)
         var notasDesc= findViewById<EditText>(R.id.editDescedit)
 

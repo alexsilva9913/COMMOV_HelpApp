@@ -1,10 +1,7 @@
 package pt.ie.commov_helpapp
 
-import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -27,7 +24,7 @@ class InserirNotas : AppCompatActivity() {
 
         (this as AppCompatActivity).supportActionBar?.title = ""
 
-        notasTitulo = findViewById(R.id.editTituloedit)
+        notasTitulo = findViewById(R.id.editTitEdit)
         notasHora = findViewById(R.id.editHoraDataedit)
         notasDesc = findViewById(R.id.editDescedit)
 

@@ -30,5 +30,11 @@
 
     <string name="passworderrada">Password errada!</string>
     <string name="preenchercampos">Por favor preencha todos os campos</string>
+    <string name="butSavePonto" >Guardar ponto</string>
+    <string name="TipoPonto" >Tipo de problema</string>
+    <string name="InserirImagem" >Inserir uma imagem</string>
+    <string name="erro" >Erro a criar novo ponto!</string>
+    <string name="selecionaImagem" >Selecionar Imagem</string>
+    <string name="uploadImagem" >Guardar Imagem</string>
 
 </resources>

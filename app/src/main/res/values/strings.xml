@@ -31,5 +31,11 @@
 
     <string name="passworderrada">Wrong Password!</string>
     <string name="preenchercampos">Please fill all the fields</string>
+    <string name="butSavePonto" >Save point</string>
+    <string name="TipoPonto" >Type of problem</string>
+    <string name="InserirImagem" >Insert Image</string>
+    <string name="erro" >Error creating new point!</string>
+    <string name="selecionaImagem" >Select image</string>
+    <string name="uploadImagem" >Save image</string>
 
 </resources>

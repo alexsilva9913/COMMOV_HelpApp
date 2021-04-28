@@ -84,11 +84,19 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
                         val idPref = preferences.getInt("ID", 0)
 
                         if(Ponto.user_id.equals(idPref)){
-                            mMap.addMarker(MarkerOptions().position(position).title(Ponto.descricao + " - " + Ponto.tipo)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                            mMap.addMarker(MarkerOptions()
+                                    .position(position)
+                                    .title(Ponto.titulo)
+                                    .snippet("Tipo de Ponto" + Ponto.tipo)
+                                    .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                         }
 
                         else {
-                            mMap.addMarker(MarkerOptions().position(position).title(Ponto.descricao + " - " + Ponto.tipo)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                            mMap.addMarker(MarkerOptions()
+                                    .position(position)
+                                    .title(Ponto.titulo)
+                                    .snippet("Tipo de Ponto" + Ponto.tipo)
+                                    .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                         }
 
                     }
@@ -111,7 +119,7 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
                 lastLocation = p0.lastLocation
                 var loc = LatLng(lastLocation.latitude, lastLocation.longitude)
                 locAdd = loc
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15.0f))
+                //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15.0f))
                 // preenche as coordenadas
                 Log.d("Coords",loc.latitude.toString() )
                 Log.d("Coords",loc.longitude.toString() )
@@ -119,7 +127,7 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
                 val address = getAddress(lastLocation.latitude, lastLocation.longitude)
 
 
-                Log.d("**** SARA", "new location received - " + loc.latitude + " -" + loc.longitude)
+                Log.d("Teste", "new location received - " + loc.latitude + " -" + loc.longitude)
             }
         }
 
@@ -138,10 +146,11 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.add_point){
 
-            val intent = Intent(this, editarnotas::class.java)
-            intent.putExtra("idDoItem",locAdd)
+            val intent = Intent(this, inserir_ponto::class.java)
+            intent.putExtra("LocLat", locAdd.latitude)
+            intent.putExtra("LocLon", locAdd.longitude)
             startActivity(intent)
-            
+
         }
         if(item.itemId == R.id.logout){
             preferences = getSharedPreferences("SharedLogin", Context.MODE_PRIVATE)
