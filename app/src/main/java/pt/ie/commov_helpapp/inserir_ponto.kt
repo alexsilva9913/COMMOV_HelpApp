@@ -1,12 +1,18 @@
 package pt.ie.commov_helpapp
 
+import android.R.attr
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import ipvc.estg.retrofit.api.EndPoints
 import ipvc.estg.retrofit.api.ServiceBuilder
 import pt.ie.commov_helpapp.api.Pontos
@@ -14,12 +20,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class inserir_ponto : AppCompatActivity() {
 
     private lateinit var pontoTitInsert: EditText
     private lateinit var pontoDesc: EditText
     private lateinit var pontoTipo: EditText
     //private lateinit var notasDesc: EditText
+
+    //Imagem
+    lateinit var imageView: ImageView
+    private val pickImage = 100
+    private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +56,24 @@ class inserir_ponto : AppCompatActivity() {
         LocLat = intent.getDoubleExtra("LocLat",0.0)
         LocLon = intent.getDoubleExtra("LocLon",0.0)
 
+        val button1 = findViewById<Button>(R.id.buttonSelect)
+        button1.setOnClickListener {
+            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+            startActivityForResult(gallery, pickImage)
+        }
+
         val button = findViewById<Button>(R.id.butSave)
         button.setOnClickListener {
             inserePonto(LocLat,LocLon,idPref)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode !== Activity.RESULT_CANCELED) {
+            if (resultCode == RESULT_OK && requestCode == pickImage) {
+                imageView.setImageURI(data?.data)
+            }
         }
     }
 

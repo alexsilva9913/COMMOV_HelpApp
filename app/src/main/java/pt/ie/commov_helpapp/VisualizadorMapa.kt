@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import ipvc.estg.retrofit.api.EndPoints
@@ -119,21 +121,12 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
                 lastLocation = p0.lastLocation
                 var loc = LatLng(lastLocation.latitude, lastLocation.longitude)
                 locAdd = loc
-                //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15.0f))
-                // preenche as coordenadas
-                Log.d("Coords",loc.latitude.toString() )
-                Log.d("Coords",loc.longitude.toString() )
-                // reverse geocoding
-                val address = getAddress(lastLocation.latitude, lastLocation.longitude)
-
-
-                Log.d("Teste", "new location received - " + loc.latitude + " -" + loc.longitude)
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 10.0f))
+                //Mostra as coordenadas periodicamente
+                Log.d("Coords",loc.latitude.toString() + " - " + loc.longitude.toString())
             }
         }
-
-        // request creation
         createLocationRequest()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -192,22 +185,23 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
 
     private fun createLocationRequest() {
         locationRequest = LocationRequest()
-        // interval specifies the rate at which your app will like to receive updates.
-        locationRequest.interval = 10000
+        locationRequest.interval = 5000 //Rate de 5 segundos
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
 
 
+    //Parar de receber Coordenadas
     override fun onPause() {
         super.onPause()
         fusedLocationClient.removeLocationUpdates(locationCallback)
-        Log.d("**** ALEX", "onPause - removeLocationUpdates")
+        Log.d("Valor:", "Pause")
     }
 
+    //Resumir a receção de coordenadas
     public override fun onResume() {
         super.onResume()
         startLocationUpdates()
-        Log.d("**** ALEX", "onResume - startLocationUpdates")
+        Log.d("Valor:", "Resume")
     }
 
 
