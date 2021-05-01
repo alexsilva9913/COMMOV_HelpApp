@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -22,7 +23,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        this.getSupportActionBar()?.hide();
+
         setContentView(R.layout.activity_main)
+
+
 
         val ButNotas = findViewById<Button>(R.id.butNotas) as Button
 
@@ -100,7 +106,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, getResources().getString(R.string.usernameerrada), Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

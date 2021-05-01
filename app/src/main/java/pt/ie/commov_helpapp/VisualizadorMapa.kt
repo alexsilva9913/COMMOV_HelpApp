@@ -89,7 +89,7 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
                             mMap.addMarker(MarkerOptions()
                                     .position(position)
                                     .title(Ponto.titulo)
-                                    .snippet("Tipo de Ponto" + Ponto.tipo)
+                                    //.snippet("Tipo de Ponto" + Ponto.tipo)
                                     .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                         }
 
@@ -97,7 +97,7 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
                             mMap.addMarker(MarkerOptions()
                                     .position(position)
                                     .title(Ponto.titulo)
-                                    .snippet("Tipo de Ponto" + Ponto.tipo)
+                                    //.snippet("Tipo de Ponto" + Ponto.tipo)
                                     .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                         }
 
@@ -121,7 +121,7 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
                 lastLocation = p0.lastLocation
                 var loc = LatLng(lastLocation.latitude, lastLocation.longitude)
                 locAdd = loc
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 10.0f))
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 13.0f))
                 //Mostra as coordenadas periodicamente
                 Log.d("Coords",loc.latitude.toString() + " - " + loc.longitude.toString())
             }

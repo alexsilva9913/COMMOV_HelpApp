@@ -37,5 +37,6 @@
     <string name="erro" >Error creating new point!</string>
     <string name="selecionaImagem" >Select image</string>
     <string name="uploadImagem" >Save image</string>
+    <string name="usernameerrada" >Wrong username!</string>
 
 </resources>

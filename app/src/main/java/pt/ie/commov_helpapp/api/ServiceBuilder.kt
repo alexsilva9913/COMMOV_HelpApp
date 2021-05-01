@@ -9,7 +9,8 @@ object ServiceBuilder {
 
     private val retrofit = Retrofit.Builder()
         //.baseUrl("http://localhost:81/slim_cm/api/")
-        .baseUrl("http://192.168.1.10:81/slim_cm/api/")
+        //.baseUrl("http://192.168.1.7/slim_cm/api/")
+            .baseUrl("http://172.16.181.232/slim_cm/api/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
