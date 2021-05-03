@@ -37,5 +37,7 @@
     <string name="selecionaImagem" >Selecionar Imagem</string>
     <string name="uploadImagem" >Guardar Imagem</string>
     <string name="usernameerrada" >Username errado!</string>
+    <string name="Mostrar" >Mostrar</string>
+    <string name="mostrarallpoints" >Mostrar todos os pontos</string>
 
 </resources>

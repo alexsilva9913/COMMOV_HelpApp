@@ -9,10 +9,13 @@ import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
@@ -21,10 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import ipvc.estg.retrofit.api.EndPoints
 import ipvc.estg.retrofit.api.ServiceBuilder
 import ipvc.estg.retrofit.api.User
@@ -38,24 +38,24 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var Pontos: List<Pontos>
 
-    // add to implement last known location
     private lateinit var lastLocation: Location
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    //added to implement location periodic updates
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
 
-    //added to implement distance between two locations
     private var continenteLat: Double = 0.0
     private var continenteLong: Double = 0.0
 
     private lateinit var locAdd: LatLng
 
+    private lateinit var findTipo: EditText
+
     //Shared Preferences
     lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualizador_mapa)
 
@@ -66,53 +66,10 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.getPontos()
-        var position: LatLng
-
-        call.enqueue(object : Callback<List<Pontos>> {
-
-             override fun onResponse(call: Call<List<Pontos>>, response: Response<List<Pontos>>) {
-
-                if (response.isSuccessful){
-
-                    Pontos = response.body()!!
-
-                    for(Ponto in Pontos ){
-
-                        position = LatLng(Ponto.lat.toString().toDouble(), Ponto.lon.toString().toDouble())
-
-                        preferences = getSharedPreferences("SharedLogin", Context.MODE_PRIVATE);
-                        val idPref = preferences.getInt("ID", 0)
-
-                        if(Ponto.user_id.equals(idPref)){
-                            mMap.addMarker(MarkerOptions()
-                                    .position(position)
-                                    .title(Ponto.titulo)
-                                    //.snippet("Tipo de Ponto" + Ponto.tipo)
-                                    .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-                        }
-
-                        else {
-                            mMap.addMarker(MarkerOptions()
-                                    .position(position)
-                                    .title(Ponto.titulo)
-                                    //.snippet("Tipo de Ponto" + Ponto.tipo)
-                                    .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-                        }
-
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<List<Pontos>>, t: Throwable) {
-                Toast.makeText(this@VisualizadorMapa, "${t.message}", Toast.LENGTH_SHORT).show()
-            }
-
-        })
-
         // initialize fusedLocationClient
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        carregar_pontos(null,null)
 
         //added to implement location periodic updates
         locationCallback = object : LocationCallback() {
@@ -127,6 +84,90 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
             }
         }
         createLocationRequest()
+
+        //Buscar tipo de ponto pelo texto do user
+        findTipo = findViewById(R.id.insertTipoPonto)
+        val button1 = findViewById<Button>(R.id.Listar)
+        button1.setOnClickListener {
+            mMap.clear()
+            carregar_pontos(findTipo.text.toString(),null)
+        }
+
+    }
+
+    fun carregar_pontos(tipo: String?, distance: Int?) {
+
+        //Listar TUDO
+        val request = ServiceBuilder.buildService(EndPoints::class.java)
+
+        var call: Call<List<Pontos>>
+        if( tipo != null ) call = request.getPontosTipo(tipo)
+        else call = request.getPontos()
+
+        var position: LatLng
+
+        call.enqueue(object : Callback<List<Pontos>> {
+
+            override fun onResponse(call: Call<List<Pontos>>, response: Response<List<Pontos>>) {
+
+                if (response.isSuccessful){
+
+                    Pontos = response.body()!!
+
+                    if (Pontos != null) {
+
+                        for (Ponto in Pontos) {
+
+                            position = LatLng(Ponto.lat.toDouble(), Ponto.lon.toDouble())
+
+                            //val distanceOf = calculateDistance(lastLocation.latitude, lastLocation.longitude, position.latitude, position.longitude)
+                            val distanceOf = 100
+
+                            preferences = getSharedPreferences("SharedLogin", Context.MODE_PRIVATE);
+                            val idPref = preferences.getInt("ID", 0)
+
+                            if (distance != null) {
+                                if (distanceOf < distance) {
+                                    if (Ponto.user_id.equals(idPref)) {
+                                        mMap.addMarker(MarkerOptions()
+                                                .position(position)
+                                                .title(Ponto.titulo)
+                                                //.snippet("Tipo de Ponto" + Ponto.tipo)
+                                                .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                                    } else {
+                                        mMap.addMarker(MarkerOptions()
+                                                .position(position)
+                                                .title(Ponto.titulo)
+                                                //.snippet("Tipo de Ponto" + Ponto.tipo)
+                                                .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                                    }
+                                }
+                            } else {
+                                if (Ponto.user_id.equals(idPref)) {
+                                    mMap.addMarker(MarkerOptions()
+                                            .position(position)
+                                            .title(Ponto.titulo)
+                                            //.snippet("Tipo de Ponto" + Ponto.tipo)
+                                            .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                                } else {
+                                    mMap.addMarker(MarkerOptions()
+                                            .position(position)
+                                            .title(Ponto.titulo)
+                                            //.snippet("Tipo de Ponto" + Ponto.tipo)
+                                            .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<List<Pontos>>, t: Throwable) {
+                Toast.makeText(this@VisualizadorMapa, "${t.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -155,6 +196,15 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
             finish()
         }
+        if(item.itemId == R.id.range){
+            mMap.clear()
+            carregar_pontos(null, 1000)
+        }
+        if(item.itemId == R.id.showall){
+            mMap.clear()
+            carregar_pontos(null, null)
+        }
+
         return super.onOptionsItemSelected(item)
     }
 

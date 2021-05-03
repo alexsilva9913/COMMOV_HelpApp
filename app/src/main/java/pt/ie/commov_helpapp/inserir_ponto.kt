@@ -88,14 +88,6 @@ class inserir_ponto : AppCompatActivity() {
             Toast.makeText(this, getResources().getString(R.string.ValoresPreencher), Toast.LENGTH_SHORT).show()
         }
         else{
-            /*
-OutputPost.titulo = tit
-OutputPost.descricao = desc
-OutputPost.tipo = tipo
-OutputPost.lat = LocLat.toString()
-OutputPost.lon = LocLon.toString()
-OutputPost.user_id = idPref*/
-
             val request = ServiceBuilder.buildService(EndPoints::class.java)
             val call = request.inserirPonto(tit,desc,LocLat.toString(),LocLon.toString(),tipo,idPref)
 

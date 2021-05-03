@@ -20,9 +20,9 @@ interface EndPoints {
     @GET("pontos")
     fun getPontos(): Call<List<Pontos>>
 
-    //Pontos por id
-    @GET("pontos/{id}")
-    fun getPontosID(@Path("id") id: Int?): Call<Pontos>
+    //Pontos por Tipo
+    @GET("pontos/{tipo}")
+    fun getPontosTipo(@Path("tipo") tipo: String?): Call<List<Pontos>>
 
     //Inserir Ponto
     @FormUrlEncoded
