@@ -47,9 +47,7 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locAdd: LatLng
 
     private lateinit var findTipo: EditText
-
-    private var markerIdMapping: HashMap<Marker, Int> = HashMap()
-
+    
     //Shared Preferences
     lateinit var preferences: SharedPreferences
 
