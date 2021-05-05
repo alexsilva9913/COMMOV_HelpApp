@@ -24,6 +24,22 @@ interface EndPoints {
     @GET("pontos/{tipo}")
     fun getPontosTipo(@Path("tipo") tipo: String?): Call<List<Pontos>>
 
+    //Pontos por ID
+    @GET("pontosID/{id}")
+    fun getPontosID(@Path("id") id: Int?): Call<Pontos>
+
+    //Delete Ponto
+    @DELETE("pontosDelete/{id}")
+    fun deletePonto(@Path("id") id: Int?): Call<Pontos>
+
+    //Editar Ponto
+    @FormUrlEncoded
+    @PUT("pontosPut/{id}")
+    fun editPonto(@Path("id") id: Int?,
+                  @Field("titulo") titulo: String?,
+                  @Field("descricao") descricao: String?,
+                  @Field("tipo") tipo: String?): Call<Pontos>
+
     //Inserir Ponto
     @FormUrlEncoded
     @POST("addponto")

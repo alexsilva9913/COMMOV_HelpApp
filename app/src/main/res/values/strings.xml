@@ -31,14 +31,22 @@
 
     <string name="passworderrada">Wrong Password!</string>
     <string name="preenchercampos">Please fill all the fields</string>
-    <string name="butSavePonto" >Save point</string>
-    <string name="TipoPonto" >Type of problem</string>
-    <string name="InserirImagem" >Insert Image</string>
-    <string name="erro" >Error creating new point!</string>
-    <string name="selecionaImagem" >Select image</string>
-    <string name="uploadImagem" >Save image</string>
-    <string name="usernameerrada" >Wrong username!</string>
-    <string name="Mostrar" >Show</string>
-    <string name="mostrarallpoints" >Show all points</string>
+    <string name="butSavePonto">Save point</string>
+    <string name="TipoPonto">Type of problem</string>
+    <string name="InserirImagem">Insert Image</string>
+    <string name="erro">Error creating new point!</string>
+    <string name="selecionaImagem">Select image</string>
+    <string name="uploadImagem">Save image</string>
+    <string name="usernameerrada">Wrong username!</string>
+    <string name="Mostrar">Show</string>
+    <string name="mostrarallpoints">Show all points</string>
+    <string name="voltar">Go Back</string>
+    <string name="deleteMArker">Marker deleted!</string>
+    <string name="cantdelete">You cant delete this marker</string>
+    <string name="editar">Edit marker</string>
+    <string name="cantedit">You cant edit this marker</string>
+    <string name="alterado" >Marker edited</string>
+    <string name="erroEditar" >Error editing marker</string>
+    <string name="butEditPonto" >Edit Marker</string>
 
 </resources>

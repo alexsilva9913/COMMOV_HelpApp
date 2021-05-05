@@ -8,9 +8,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-    //Galeria
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.COMMOV_HelpApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".inserir_ponto"></activity>
+        <activity android:name=".edit_Ponto"></activity>
+        <activity android:name=".marker_desc" />
+        <activity android:name=".inserir_ponto" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

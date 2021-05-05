@@ -4,12 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.location.Geocoder
 import android.location.Location
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
@@ -17,17 +15,19 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
 import ipvc.estg.retrofit.api.EndPoints
 import ipvc.estg.retrofit.api.ServiceBuilder
-import ipvc.estg.retrofit.api.User
 import pt.ie.commov_helpapp.api.Pontos
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,12 +44,11 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
 
-    private var continenteLat: Double = 0.0
-    private var continenteLong: Double = 0.0
-
     private lateinit var locAdd: LatLng
 
     private lateinit var findTipo: EditText
+
+    private var markerIdMapping: HashMap<Marker, Int> = HashMap()
 
     //Shared Preferences
     lateinit var preferences: SharedPreferences
@@ -129,32 +128,21 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
                             if (distance != null) {
                                 if (distanceOf < distance) {
                                     if (Ponto.user_id.equals(idPref)) {
-                                        mMap.addMarker(MarkerOptions()
-                                                .position(position)
-                                                .title(Ponto.titulo)
-                                                //.snippet("Tipo de Ponto" + Ponto.tipo)
-                                                .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                                        val marker = mMap.addMarker(MarkerOptions().position(position).title(Ponto.titulo).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                                        marker.tag = "${Ponto.id}-true"
                                     } else {
-                                        mMap.addMarker(MarkerOptions()
-                                                .position(position)
-                                                .title(Ponto.titulo)
-                                                //.snippet("Tipo de Ponto" + Ponto.tipo)
-                                                .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                                        val marker = mMap.addMarker(MarkerOptions().position(position).title(Ponto.titulo).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
+                                        marker.tag = "${Ponto.id}-true"
                                     }
                                 }
                             } else {
                                 if (Ponto.user_id.equals(idPref)) {
-                                    mMap.addMarker(MarkerOptions()
-                                            .position(position)
-                                            .title(Ponto.titulo)
-                                            //.snippet("Tipo de Ponto" + Ponto.tipo)
-                                            .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                                    val marker = mMap.addMarker(MarkerOptions().position(position).title(Ponto.titulo).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                                    marker.tag = "${Ponto.id}-true"
+
                                 } else {
-                                    mMap.addMarker(MarkerOptions()
-                                            .position(position)
-                                            .title(Ponto.titulo)
-                                            //.snippet("Tipo de Ponto" + Ponto.tipo)
-                                            .snippet(Ponto.descricao)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                                    val marker = mMap.addMarker(MarkerOptions().position(position).title(Ponto.titulo).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
+                                    marker.tag = "${Ponto.id}-true"
                                 }
                             }
                         }
@@ -210,6 +198,26 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
+        mMap.setOnInfoWindowClickListener( object: GoogleMap.OnInfoWindowClickListener {
+            override fun onInfoWindowClick(p0: Marker) {
+
+                val intent = Intent(this@VisualizadorMapa, marker_desc::class.java)
+
+                //Buscar valor do ID do marker
+                val id: Int
+                val split = TextUtils.split( "${p0.tag}", "-")
+
+                //Valor do ID
+                id = split[0].toInt()
+                intent.putExtra("idDoMarker",id)
+
+                Log.d("VALOR", id.toString())
+
+                startActivity(intent)
+                finish()
+            }
+        })
     }
 
     //Alterado

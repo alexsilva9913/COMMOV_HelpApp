@@ -39,5 +39,13 @@
     <string name="usernameerrada" >Username errado!</string>
     <string name="Mostrar" >Mostrar</string>
     <string name="mostrarallpoints" >Mostrar todos os pontos</string>
+    <string name="voltar" >Voltar</string>
+    <string name="deleteMArker" >Ponto eliminado!</string>
+    <string name="cantdelete" >Não pode eliminar este ponto!</string>
+    <string name="editar" >Editar ponto</string>
+    <string name="cantedit" >Não pode editar este ponto</string>
+    <string name="alterado" >Ponto alterado</string>
+    <string name="erroEditar" >Erro a editar ponto</string>
+    <string name="butEditPonto" >Editar Marcador</string>
 
 </resources>
