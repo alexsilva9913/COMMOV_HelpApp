@@ -21,6 +21,7 @@ class edit_Ponto : AppCompatActivity() {
     private lateinit var pontoDesc: EditText
     private lateinit var pontoTipo: EditText
 
+    //Variável do ID do Marcador
     private var IdMarker = 0
 
     //Shared Preferences
@@ -36,8 +37,10 @@ class edit_Ponto : AppCompatActivity() {
 
         IdMarker = intent.getIntExtra("idDoMarkerEdit", 0)
 
+        //Carregar valores do ponto nos EditText
         carregar_pontos(IdMarker)
 
+        //Botão editar
         val button1 = findViewById<Button>(R.id.butSave)
         button1.setOnClickListener{
             editPonto(IdMarker)
@@ -85,16 +88,11 @@ class edit_Ponto : AppCompatActivity() {
             call.enqueue(object : Callback<Pontos> {
 
                 override fun onResponse(call: Call<Pontos>, response: Response<Pontos>) {
-                    if (response.isSuccessful){
-                        Toast.makeText(this@edit_Ponto, getResources().getString(R.string.alterado), Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@edit_Ponto, marker_desc::class.java)
-                        intent.putExtra("idDoMarkerDoEdit", IdMarker)
-                        startActivity(intent)
-                        finish()
-                    }
-                    else{
-                        Toast.makeText(this@edit_Ponto, getResources().getString(R.string.erroEditar), Toast.LENGTH_SHORT).show()
-                    }
+                    Toast.makeText(this@edit_Ponto, getResources().getString(R.string.alterado), Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@edit_Ponto, marker_desc::class.java)
+                    intent.putExtra("idDoMarkerDoEdit", IdMarker)
+                    startActivity(intent)
+                    finish()
                 }
 
                 override fun onFailure(call: Call<Pontos>, t: Throwable) {

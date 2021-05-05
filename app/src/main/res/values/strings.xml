@@ -48,5 +48,6 @@
     <string name="alterado" >Marker edited</string>
     <string name="erroEditar" >Error editing marker</string>
     <string name="butEditPonto" >Edit Marker</string>
+    <string name="deletepontopergunta" >Do you want to delete this marker?</string>
 
 </resources>

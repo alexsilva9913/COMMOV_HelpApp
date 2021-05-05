@@ -96,6 +96,8 @@ class inserir_ponto : AppCompatActivity() {
                 override fun onResponse(call: Call<Pontos>, response: Response<Pontos>) {
                     if (response.isSuccessful){
                         Toast.makeText(this@inserir_ponto, getResources().getString(R.string.Criado), Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@inserir_ponto, VisualizadorMapa::class.java)
+                        startActivity(intent)
                         finish()
                     }
                     else{
@@ -109,4 +111,11 @@ class inserir_ponto : AppCompatActivity() {
             })
         }
     }
+
+    override fun onBackPressed() {
+        val intent = Intent(this@inserir_ponto, VisualizadorMapa::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 }

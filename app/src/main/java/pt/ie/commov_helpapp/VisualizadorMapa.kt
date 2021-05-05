@@ -68,14 +68,14 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
 
         carregar_pontos(null,null)
 
-        //added to implement location periodic updates
+        //Localização Periódica
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(p0: LocationResult) {
                 super.onLocationResult(p0)
                 lastLocation = p0.lastLocation
                 var loc = LatLng(lastLocation.latitude, lastLocation.longitude)
                 locAdd = loc
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 13.0f))
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 14.5f))
                 //Mostra as coordenadas periodicamente
                 Log.d("Coords",loc.latitude.toString() + " - " + loc.longitude.toString())
             }
@@ -127,20 +127,20 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
                                 if (distanceOf < distance) {
                                     if (Ponto.user_id.equals(idPref)) {
                                         val marker = mMap.addMarker(MarkerOptions().position(position).title(Ponto.titulo).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
-                                        marker.tag = "${Ponto.id}-true"
+                                        marker.tag = Ponto.id
                                     } else {
                                         val marker = mMap.addMarker(MarkerOptions().position(position).title(Ponto.titulo).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
-                                        marker.tag = "${Ponto.id}-true"
+                                        marker.tag = Ponto.id
                                     }
                                 }
                             } else {
                                 if (Ponto.user_id.equals(idPref)) {
                                     val marker = mMap.addMarker(MarkerOptions().position(position).title(Ponto.titulo).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
-                                    marker.tag = "${Ponto.id}-true"
+                                    marker.tag = Ponto.id
 
                                 } else {
                                     val marker = mMap.addMarker(MarkerOptions().position(position).title(Ponto.titulo).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)))
-                                    marker.tag = "${Ponto.id}-true"
+                                    marker.tag = Ponto.id
                                 }
                             }
                         }
@@ -170,6 +170,7 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
             intent.putExtra("LocLat", locAdd.latitude)
             intent.putExtra("LocLon", locAdd.longitude)
             startActivity(intent)
+            finish()
 
         }
         if(item.itemId == R.id.logout){
@@ -198,16 +199,15 @@ class VisualizadorMapa : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         mMap.setOnInfoWindowClickListener( object: GoogleMap.OnInfoWindowClickListener {
-            override fun onInfoWindowClick(p0: Marker) {
+            override fun onInfoWindowClick(m: Marker) {
 
                 val intent = Intent(this@VisualizadorMapa, marker_desc::class.java)
 
                 //Buscar valor do ID do marker
                 val id: Int
-                val split = TextUtils.split( "${p0.tag}", "-")
 
                 //Valor do ID
-                id = split[0].toInt()
+                id = m.tag as Int //split[0].toInt()
                 intent.putExtra("idDoMarker",id)
 
                 Log.d("VALOR", id.toString())

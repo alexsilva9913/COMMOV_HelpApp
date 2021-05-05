@@ -22,7 +22,6 @@ class editarnotas : AppCompatActivity() {
     var horavalor = ""
     var descvalor = ""
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_editarnotas)

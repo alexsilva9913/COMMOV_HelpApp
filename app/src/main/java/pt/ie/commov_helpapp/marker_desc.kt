@@ -1,23 +1,20 @@
 package pt.ie.commov_helpapp
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import ipvc.estg.retrofit.api.EndPoints
 import ipvc.estg.retrofit.api.ServiceBuilder
-import ipvc.estg.retrofit.api.User
 import pt.ie.commov_helpapp.api.Pontos
 import retrofit2.Call
 import retrofit2.Callback
@@ -157,12 +154,26 @@ class marker_desc : AppCompatActivity() {
             val idPref = preferences.getInt("ID", 0)
 
             if(idPref.equals(iddoUserMarker)){
-                deletePonto(IdMarker)
+
+                val builder = AlertDialog.Builder(this)
+                builder.setPositiveButton(getResources().getString(R.string.yes)) { _, _ ->
+                    deletePonto(IdMarker)
+                }
+                builder.setNegativeButton(getResources().getString(R.string.no)) { _, _ -> }
+                builder.setTitle(getResources().getString(R.string.deletepontopergunta))
+                builder.create().show()
+
             }
             else{
                 Toast.makeText(this@marker_desc, R.string.cantdelete, Toast.LENGTH_SHORT).show()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this@marker_desc, VisualizadorMapa::class.java)
+        startActivity(intent)
+        finish()
     }
 }

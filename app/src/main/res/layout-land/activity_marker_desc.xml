@@ -14,7 +14,7 @@
         android:layout_marginTop="28dp"
         android:text="@string/Titulo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.261"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,12 +41,12 @@
         app:layout_constraintTop_toBottomOf="@+id/outputTituloMarker" />
 
     <TextView
+        android:ems="10"
         android:id="@+id/outputTipoMarker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/rectangle"
-        android:ems="10"
         android:text="@string/Titulo"
         app:layout_constraintEnd_toEndOf="@+id/labelTipo"
         app:layout_constraintStart_toStartOf="@+id/labelTipo"
@@ -56,10 +56,10 @@
         android:id="@+id/labelDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="12dp"
         android:text="@string/Description"
         app:layout_constraintEnd_toEndOf="@+id/outputTipoMarker"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="@+id/outputTipoMarker"
         app:layout_constraintTop_toBottomOf="@+id/outputTipoMarker" />
 
@@ -67,16 +67,14 @@
         android:id="@+id/OutputMarkerDescricao"
         android:layout_width="328dp"
         android:layout_height="104dp"
-        android:layout_marginTop="8dp"
         android:background="@drawable/rectangle"
-        android:ems="10"
         android:text="@string/Desc"
+        android:ems="10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/outputTipoMarker"
-        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="@+id/outputTipoMarker"
-        app:layout_constraintTop_toBottomOf="@+id/outputTipoMarker"
-        app:layout_constraintVertical_bias="0.106" />
+        app:layout_constraintTop_toBottomOf="@+id/labelDesc"
+        app:layout_constraintVertical_bias="0.125" />
 
     <Button
         android:id="@+id/buttonVoltar"
@@ -84,21 +82,23 @@
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:text="@string/voltar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/buttonEditar"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/buttonEditar"
-        app:layout_constraintTop_toBottomOf="@+id/buttonEditar" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonEditar"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/buttonEditar"
         android:layout_width="190dp"
         android:layout_height="50dp"
-        android:layout_marginTop="168dp"
+        android:layout_marginTop="108dp"
         android:text="@string/editar"
-        app:layout_constraintEnd_toEndOf="@+id/OutputMarkerDescricao"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.771"
         app:layout_constraintStart_toStartOf="@+id/OutputMarkerDescricao"
-        app:layout_constraintTop_toBottomOf="@+id/OutputMarkerDescricao" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

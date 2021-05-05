@@ -47,5 +47,6 @@
     <string name="alterado" >Ponto alterado</string>
     <string name="erroEditar" >Erro a editar ponto</string>
     <string name="butEditPonto" >Editar Marcador</string>
+    <string name="deletepontopergunta" >Deseja eliminar este ponto?</string>
 
 </resources>
